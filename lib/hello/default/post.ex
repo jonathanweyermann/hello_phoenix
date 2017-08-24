@@ -8,6 +8,7 @@ defmodule Hello.Default.Post do
     field :body, :string
     field :title, :string
 
+    has_many :comments, Hello.Default.Comment
     timestamps()
   end
 
