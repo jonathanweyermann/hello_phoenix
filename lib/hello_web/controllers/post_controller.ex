@@ -1,3 +1,4 @@
+#require IEx
 defmodule HelloWeb.PostController do
   use HelloWeb, :controller
 
@@ -32,10 +33,9 @@ defmodule HelloWeb.PostController do
   def add_comment(conn, %{"comment" => comment_params, "post_id" => post_id}) do
     changeset = Comment.changeset(%Comment{}, Map.put(comment_params, "post_id", post_id))
     post = Post |> Repo.get(post_id) |> Repo.preload([:comments])
-
     if changeset.valid? do
+      #IEx.pry
       Repo.insert(changeset)
-
       conn
       |> put_flash(:info, "Comment added.")
       |> redirect(to: post_path(conn, :show, post))

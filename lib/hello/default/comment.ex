@@ -15,7 +15,7 @@ defmodule Hello.Default.Comment do
   @doc false
   def changeset(%Comment{} = comment, attrs \\ %{}) do
     comment
-    |> cast(attrs, [:name, :content])
+    |> cast(attrs, [:name, :content, :post_id])
     |> validate_required([:name, :content])
   end
 end
