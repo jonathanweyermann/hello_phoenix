@@ -1,8 +1,8 @@
 defmodule Hello.Default.Post do
   use Ecto.Schema
-  import Ecto.Changeset
   alias Hello.Default.Post
-
+  import Ecto.Query
+  import Ecto.Changeset
 
   schema "posts" do
     field :body, :string
@@ -17,5 +17,12 @@ defmodule Hello.Default.Post do
     post
     |> cast(attrs, [:title, :body])
     |> validate_required([:title, :body])
+  end
+
+  def count_comments(query) do
+    from p in query,
+      group_by: p.id,
+      left_join: c in assoc(p, :comments),
+      select: {p, count(c.id)}
   end
 end
